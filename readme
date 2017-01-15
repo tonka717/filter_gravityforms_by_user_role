@@ -1,0 +1,39 @@
+Using Gravity Forms and the User Role Editor Plugin to define user roles with gravity form capabilities.
+
+Introduced a post get forms filter loop to filter out forms by ID number from the get forms results.  
+
+In gravity forms file \wp-content\plugins\gravityforms\form_list.php after this line (around 465)
+$forms   = RGFormsModel::get_forms( $active, $sort_column, $sort_direction, $trash );
+
+Add this snippet to filter restricted forms by ID 
+/*filter by role*/
+		global $my_GFForms;
+		foreach ($forms as $key => $myformitem) {
+			$formid = $myformitem->id;
+			if(!in_array($formid, $my_GFForms)){
+				unset($forms[$key]);
+			}
+		}
+		
+/*filter by role*/
+
+Then add this snippet in the funtions.php
+
+$my_GFForms =  array();
+$current_user = wp_get_current_user();
+if(!empty( $current_user->roles ) && is_array( $current_user->roles ) ) {
+    foreach($current_user->roles as $key => $value){
+        if($value == 'editor') {
+            $my_GFForms = array(1); //<-- just add more form id to the array ie (1,2,3,4)
+        }
+        elseif($value == 'administrator_clone') {
+            $my_GFForms = array(2); //<-- just add more form id to the array ie (1,2,3,4)
+        }
+//        elseif($value == 'new_role') {
+//            $my_GFForms = array(2); //<-- just add more form id to the array ie (1,2,3,4)
+//        }
+        else {
+            $my_GFForms = array(3);  //<-- just add more form id to the array ie (1,2,3,4)
+        }
+    }
+}

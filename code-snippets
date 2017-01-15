@@ -1,4 +1,4 @@
-Using Gravity Forms and the User Role Editor Plugin to define user roles with gravity form capabilities.
+Use the User Role Editor Plugin to define user roles with gravity form capabilities.
 
 Introduced a post get forms filter loop to filter out forms by ID number from the get forms results.  
 

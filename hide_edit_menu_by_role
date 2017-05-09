@@ -1,4 +1,4 @@
- //This snippet hides the edit menu by role in WordPress Dashboard -GF No Conflict Mode needs to be turned off  
+ //This snippet hides the edit menu by role in WordPress Dashboard -GF No Conflict Mode needs to be turned off to fire from theme functions or hack GF add to admin-pages.php in gravity forms
  if (!$this->IsAdministrator()) {  
        //   remove_submenu_page( 'gf_edit_forms', 'gf_entries' );
        echo('<script type="text/javascript">document.addEventListener(\'DOMContentLoaded\',function(){jQuery(".wp-submenu li:has(a[href=\'admin.php?page=gf_entries\'])").hide();}); </script>');        
